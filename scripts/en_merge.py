@@ -21,6 +21,7 @@ def web_ref(n,a,z): return [web.get('ezek',n,v) for v in range(a,z+1)]
 def rep(o,P):
     if isinstance(o,str):
         if HAN.search(o) and not U.skip_path(P,data):
+            if o not in tr and o.replace('蹚','趟') in tr: return tr[o.replace('蹚','趟')]
             assert o in tr,('未譯',P,o[:30]); return tr[o]
         return o
     if isinstance(o,list): return [rep(x,P+(i,)) for i,x in enumerate(o)]
