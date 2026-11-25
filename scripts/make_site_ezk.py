@@ -28,7 +28,11 @@ tc=pre+MARK+dj+post
 # 簡體頁：head 轉簡 + SCBOOT
 BOOT=('<script id="SCBOOT">/* 简体页：一律以简体开启（保留其他存档） */\ntry { var K=\'r321.ezk.v1\', o=JSON.parse(localStorage.getItem(K)||\'null\'); if(!o||typeof o!==\'object\') o={ v:1, last:1, steps:{}, notes:{}, lnote:{}, prac:{}, mem:{}, set:{ fs:1, grk:1, dark:0, role:\'\' }, seen:{} }; o.set=o.set||{}; o.set.sc=1; localStorage.setItem(K,JSON.stringify(o)); } catch(e){}\n</script>\n')
 scpage=t2s(pre)+BOOT+MARK+dj+post
-for f,t in (('index.html',tc),('sc.html',scpage)): open(O+f,'w',encoding='utf-8').write(t)
+en_shell=open('build/shell_ezk_en.html',encoding='utf-8').read(); en_data=json.load(open('build/ez_en.json',encoding='utf-8'))
+enj=json.dumps(en_data,ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
+assert en_shell.count('@@DATA@@')==1
+enpage=en_shell.replace('@@DATA@@',MARK+enj)
+for f,t in (('index.html',tc),('sc.html',scpage),('en.html',enpage)): open(O+f,'w',encoding='utf-8').write(t)
 # manifest
 mf=json.load(open(R+'manifest.webmanifest',encoding='utf-8'))
 mf.update(name='以西結書講義',short_name='以西結書講義',description='以西結書全書四十八章：逐節原文解經、講章逐字稿、教學講章、321 生命應用。',id='/321ezekiel/')
@@ -38,7 +42,7 @@ me.update(name='Ezekiel Study Notes',short_name='Ezekiel Notes',description='Eze
 json.dump(me,open(O+'manifest-en.webmanifest','w',encoding='utf-8'),ensure_ascii=False,indent=2)
 # sw
 sw=open(R+'sw.js',encoding='utf-8').read()
-ver='以西結書-'+hashlib.sha1(tc.encode()).hexdigest()[:12]
+ver='以西結書-'+hashlib.sha1((tc+enpage).encode()).hexdigest()[:12]
 sw=sw.replace('耶利米書','以西結書').replace("const V = '以西結書-87214b32552e'",f"const V = '{ver}'")
 assert ver in sw and 'PFX = \'以西結書-\'' in sw and '耶利米' not in sw
 open(O+'sw.js','w',encoding='utf-8').write(sw)
