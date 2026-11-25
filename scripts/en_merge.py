@@ -11,6 +11,12 @@ for pk in packs:
     d=U.parse(f'en/out/{pk}.txt')
     for i,t in d.items(): tr[units[str(i)]]=t
 assert len(tr)==len(units),(len(tr),len(units))
+import os
+if os.path.exists('en/delta_units.json'):
+    du=L('en/delta_units.json'); dp=L('en/delta_packs.json')
+    for pk in dp:
+        d=U.parse(f'en/out/{pk}.txt')
+        for i,t in d.items(): tr[du[i]]=t
 def web_ref(n,a,z): return [web.get('ezek',n,v) for v in range(a,z+1)]
 def rep(o,P):
     if isinstance(o,str):
