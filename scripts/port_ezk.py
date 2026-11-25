@@ -43,6 +43,7 @@ sub('window.GX_BOOK = {"zh": "耶利米書", "en": "Jeremiah", "slug": "jer"};',
 sub("'Currently reading: Jeremiah '","'Currently reading: Ezekiel '",1)
 sub('1,364','1,273')
 sub('五十二','四十八')
+sub('召 · 控 · 約 · 王 · 慰 · 破 · 列 · 記','召 · 圍 · 離 · 望 · 控 · 列 · 生 · 歸',None)
 # 地形圖
 MAPH=("""    <div class="card"><p style="margin:0 0 10px"><b>召</b>（1–3 章）　<b>1:28</b> 耶和華榮耀的形像　→　<b>2:2</b> 靈就進入我裡面　→　<b>3:17</b> 立你作守望的人</p>
     <p style="margin:0 0 10px"><b>圍</b>（4–7 章）　<b>4:1</b> 磚上的耶路撒冷　→　<b>5:5</b> 這就是耶路撒冷　→　<b>7:2</b> 結局到了</p>
